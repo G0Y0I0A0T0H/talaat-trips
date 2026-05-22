@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>طلعت — الرحلة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-trip">
+
+  <!-- Ambient -->
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="app-header app-header--trip">
+    <div class="app-header-inner">
+      <div class="trip-header-left">
+        <a href="index.html" class="icon-btn" title="رجوع">
+          <i class="ph ph-arrow-right"></i>
+        </a>
+        <span class="trip-header-title" id="headerTripName">جاري التحميل...</span>
+      </div>
+      <div class="trip-header-right">
+        <span class="badge" id="headerStatus" style="display:none"></span>
+        <button class="icon-btn" id="tripMenuBtn" title="خيارات">
+          <i class="ph ph-dots-three-vertical"></i>
+        </button>
+        <div class="tc-dropdown hidden" id="tripDropdown" style="top:48px;left:0;right:auto">
+          <button class="tc-drop-item" onclick="openEditTripModal()">
+            <i class="ph ph-pencil-simple"></i> تعديل الرحلة
+          </button>
+          <button class="tc-drop-item danger" onclick="confirmDeleteTrip()">
+            <i class="ph ph-trash"></i> حذف الرحلة
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Trip Cover -->
+  <div class="trip-cover" id="tripCover">
+    <div class="trip-cover-bg" id="tripCoverBg"></div>
+    <div class="trip-cover-icon" id="tripCoverIcon"></div>
+    <div class="trip-cover-overlay"></div>
+    <div class="trip-cover-content">
+      <div class="trip-cover-type" id="tripCoverType"></div>
+      <h1 class="trip-cover-name" id="tripCoverName">جاري التحميل...</h1>
+      <div class="trip-cover-meta" id="tripCoverMeta"></div>
+    </div>
+  </div>
+
+  <!-- Stats strip -->
+  <div class="trip-stats" id="tripStats">
+    <div class="trip-stat">
+      <span class="trip-stat-val" id="stat-items">—</span>
+      <span class="trip-stat-lbl">عناصر</span>
+    </div>
+    <div class="trip-stat">
+      <span class="trip-stat-val" id="stat-done">—</span>
+      <span class="trip-stat-lbl">مكتمل</span>
+    </div>
+    <div class="trip-stat">
+      <span class="trip-stat-val" id="stat-budget">—</span>
+      <span class="trip-stat-lbl">المصاريف</span>
+    </div>
+    <div class="trip-stat">
+      <span class="trip-stat-val" id="stat-members">—</span>
+      <span class="trip-stat-lbl">أعضاء</span>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-nav-wrap">
+    <nav class="tab-nav" id="tabNav">
+      <button class="tab-btn active" data-tab="checklist">
+        <i class="ph ph-list-checks"></i>
+        <span>القائمة</span>
+      </button>
+      <button class="tab-btn" data-tab="timeline">
+        <i class="ph ph-calendar-blank"></i>
+        <span>الجدول</span>
+      </button>
+      <button class="tab-btn" data-tab="expenses">
+        <i class="ph ph-receipt"></i>
+        <span>المصاريف</span>
+      </button>
+      <button class="tab-btn" data-tab="meals">
+        <i class="ph ph-fork-knife"></i>
+        <span>الوجبات</span>
+      </button>
+      <button class="tab-btn" data-tab="members">
+        <i class="ph ph-users"></i>
+        <span>الأعضاء</span>
+      </button>
+      <button class="tab-btn" data-tab="memories">
+        <i class="ph ph-images"></i>
+        <span>الذكريات</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- ── CHECKLIST TAB ── -->
+  <section class="tab-content active" id="tab-checklist">
+    <div class="filter-row">
+      <div class="search-wrap">
+        <i class="ph ph-magnifying-glass search-ico"></i>
+        <input type="text" id="searchInput" class="search-field" placeholder="بحث في القائمة...">
+        <button class="search-x hidden" id="searchClear"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="status-pills" id="statusFilter">
+        <button class="s-pill active" data-status="all">الكل</button>
+        <button class="s-pill" data-status="pending">متبقي</button>
+        <button class="s-pill" data-status="done">مكتمل</button>
+      </div>
+    </div>
+    <div class="cat-bar-wrap">
+      <div class="cat-bar" id="catBar">
+        <button class="cat-btn active" data-cat="all">
+          <i class="ph ph-squares-four"></i> الكل <span class="cat-num" id="cn-all">0</span>
+        </button>
+        <button class="cat-btn" data-cat="food"><i class="ph ph-fork-knife"></i> طعام <span class="cat-num" id="cn-food">0</span></button>
+        <button class="cat-btn" data-cat="drinks"><i class="ph ph-drop"></i> مشروبات <span class="cat-num" id="cn-drinks">0</span></button>
+        <button class="cat-btn" data-cat="bbq"><i class="ph ph-fire"></i> شواء <span class="cat-num" id="cn-bbq">0</span></button>
+        <button class="cat-btn" data-cat="snacks"><i class="ph ph-cookie"></i> سناكس <span class="cat-num" id="cn-snacks">0</span></button>
+        <button class="cat-btn" data-cat="fruits"><i class="ph ph-leaf"></i> فواكه <span class="cat-num" id="cn-fruits">0</span></button>
+        <button class="cat-btn" data-cat="electronics"><i class="ph ph-plug"></i> إلكترونيات <span class="cat-num" id="cn-electronics">0</span></button>
+        <button class="cat-btn" data-cat="cleaning"><i class="ph ph-sparkle"></i> تنظيف <span class="cat-num" id="cn-cleaning">0</span></button>
+        <button class="cat-btn" data-cat="swimming"><i class="ph ph-waves"></i> سباحة <span class="cat-num" id="cn-swimming">0</span></button>
+        <button class="cat-btn" data-cat="games"><i class="ph ph-game-controller"></i> ألعاب <span class="cat-num" id="cn-games">0</span></button>
+        <button class="cat-btn" data-cat="emergency"><i class="ph ph-plus-circle"></i> طوارئ <span class="cat-num" id="cn-emergency">0</span></button>
+        <button class="cat-btn" data-cat="other"><i class="ph ph-cube"></i> أخرى <span class="cat-num" id="cn-other">0</span></button>
+      </div>
+    </div>
+    <div id="itemsStates">
+      <div class="spinner" id="itemsLoading" style="margin:40px auto"></div>
+      <div class="empty-state hidden" id="itemsEmpty">
+        <i class="ph ph-list-checks"></i>
+        <h3>القائمة فارغة</h3>
+        <p>أضف أول عنصر للرحلة</p>
+        <button class="btn-primary" onclick="openItemModal()">
+          <i class="ph ph-plus"></i> إضافة عنصر
+        </button>
+      </div>
+      <div class="empty-state hidden" id="itemsNoResults">
+        <i class="ph ph-magnifying-glass"></i>
+        <h3>لا توجد نتائج</h3>
+        <p>جرّب كلمة بحث مختلفة</p>
+      </div>
+    </div>
+    <div class="items-list" id="itemsList"></div>
+  </section>
+
+  <!-- ── TIMELINE TAB ── -->
+  <section class="tab-content" id="tab-timeline">
+    <div id="timelineStates">
+      <div class="spinner" id="tlLoading" style="margin:40px auto"></div>
+      <div class="empty-state hidden" id="tlEmpty">
+        <i class="ph ph-calendar-blank"></i>
+        <h3>لا يوجد جدول بعد</h3>
+        <p>أضف أول نشاط للرحلة</p>
+        <button class="btn-primary" onclick="openActivityModal()">
+          <i class="ph ph-plus"></i> إضافة نشاط
+        </button>
+      </div>
+    </div>
+    <div class="timeline" id="timeline"></div>
+  </section>
+
+  <!-- ── EXPENSES TAB ── -->
+  <section class="tab-content" id="tab-expenses">
+    <div id="expStates">
+      <div class="spinner" id="expLoading" style="margin:40px auto"></div>
+      <div class="empty-state hidden" id="expEmpty">
+        <i class="ph ph-receipt"></i>
+        <h3>لا توجد مصاريف مسجّلة</h3>
+        <p>ابدأ بتسجيل أول مصروف للرحلة</p>
+        <button class="btn-primary" onclick="openExpenseModal()">
+          <i class="ph ph-plus"></i> إضافة مصروف
+        </button>
+      </div>
+    </div>
+    <div id="expContent" class="hidden">
+      <div class="exp-summary" id="expSummary"></div>
+      <div class="section-head">
+        <span class="section-title"><i class="ph ph-receipt"></i> المدفوعات</span>
+      </div>
+      <div class="items-list" id="expList"></div>
+      <div class="settlement-section">
+        <div class="section-head">
+          <span class="section-title"><i class="ph ph-scales"></i> التسوية</span>
+        </div>
+        <div class="settlement-list" id="settlementList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MEALS TAB ── -->
+  <section class="tab-content" id="tab-meals">
+    <div id="mealStates">
+      <div class="spinner" id="mealLoading" style="margin:40px auto"></div>
+      <div class="empty-state hidden" id="mealEmpty">
+        <i class="ph ph-fork-knife"></i>
+        <h3>لا توجد وجبات مخططة</h3>
+        <p>ابدأ بتخطيط وجبات الرحلة</p>
+        <button class="btn-primary" onclick="openMealModal()">
+          <i class="ph ph-plus"></i> إضافة وجبة
+        </button>
+      </div>
+    </div>
+    <div id="mealsContent" class="hidden">
+      <div id="mealsBreakfast" class="meal-section"></div>
+      <div id="mealsLunch"     class="meal-section"></div>
+      <div id="mealsDinner"    class="meal-section"></div>
+      <div id="mealsSnacks"    class="meal-section"></div>
+    </div>
+  </section>
+
+  <!-- ── MEMBERS TAB ── -->
+  <section class="tab-content" id="tab-members">
+    <div class="section-head" style="margin-bottom:12px">
+      <span class="section-title"><i class="ph ph-users"></i> أعضاء الرحلة</span>
+    </div>
+    <div class="add-member-row">
+      <input type="text" id="memberInput" class="field-input" placeholder="اسم العضو الجديد..." autocomplete="off">
+      <button class="btn-primary" onclick="addMember()" style="flex-shrink:0">
+        <i class="ph ph-plus"></i>
+      </button>
+    </div>
+    <div class="member-grid" id="memberGrid"></div>
+    <div class="section-head" style="margin-top:28px;margin-bottom:12px">
+      <span class="section-title"><i class="ph ph-clipboard-text"></i> توزيع المسؤوليات</span>
+    </div>
+    <div class="resp-cards" id="respCards"></div>
+  </section>
+
+  <!-- ── MEMORIES TAB ── -->
+  <section class="tab-content" id="tab-memories">
+    <div id="memStates">
+      <div class="empty-state hidden" id="memEmpty">
+        <i class="ph ph-images"></i>
+        <h3>لا توجد ذكريات بعد</h3>
+        <p>أضف صور من الرحلة أو روابط صور</p>
+        <button class="btn-primary" onclick="openMemoryModal()">
+          <i class="ph ph-plus"></i> إضافة صورة
+        </button>
+      </div>
+    </div>
+    <div class="memory-grid" id="memGrid"></div>
+  </section>
+
+  <!-- ── GENERIC MODAL ── -->
+  <div class="overlay hidden" id="modalOverlay" onclick="handleOverlayClick(event,'modalOverlay',closeModal)">
+    <div class="modal" id="modal">
+      <div class="modal-head">
+        <h2 class="modal-title" id="modalTitle">إضافة</h2>
+        <button class="close-btn" onclick="closeModal()"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-foot">
+        <button class="btn-ghost" onclick="closeModal()">إلغاء</button>
+        <button class="btn-primary" id="modalSaveBtn" onclick="modalSave()">
+          <i class="ph ph-check"></i> حفظ
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Edit Trip Modal ── -->
+  <div class="overlay hidden" id="tripEditOverlay" onclick="handleOverlayClick(event,'tripEditOverlay',closeEditTripModal)">
+    <div class="modal modal--lg" id="tripEditModal">
+      <div class="modal-head">
+        <h2 class="modal-title"><i class="ph ph-pencil-simple"></i> تعديل الرحلة</h2>
+        <button class="close-btn" onclick="closeEditTripModal()"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="field-row">
+          <div class="field field--grow">
+            <label class="field-label">اسم الرحلة <span class="req">*</span></label>
+            <input type="text" id="etName" class="field-input" autocomplete="off">
+          </div>
+          <div class="field" style="width:140px;flex-shrink:0">
+            <label class="field-label">النوع</label>
+            <div class="select-wrap">
+              <select id="etType" class="field-input field-select">
+                <option value="farm">مزرعة</option>
+                <option value="beach">شاطئ</option>
+                <option value="chalet">شاليه</option>
+                <option value="camping">تخييم</option>
+                <option value="roadtrip">رحلة برية</option>
+                <option value="travel">سفر</option>
+                <option value="custom">مخصص</option>
+              </select>
+              <i class="ph ph-caret-down sel-arrow"></i>
+            </div>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field field--grow">
+            <label class="field-label">الموقع</label>
+            <div class="field-icon-wrap">
+              <i class="ph ph-map-pin field-pre-icon"></i>
+              <input type="text" id="etLocation" class="field-input field-input--icon" autocomplete="off">
+            </div>
+          </div>
+          <div class="field" style="width:150px;flex-shrink:0">
+            <label class="field-label">الميزانية (ج.م)</label>
+            <input type="number" id="etBudget" class="field-input" min="0">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label class="field-label">تاريخ البدء</label><input type="date" id="etStart" class="field-input"></div>
+          <div class="field"><label class="field-label">تاريخ الانتهاء</label><input type="date" id="etEnd" class="field-input"></div>
+        </div>
+        <div class="field">
+          <label class="field-label">وصف الرحلة</label>
+          <textarea id="etDesc" class="field-input field-textarea" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn-ghost" onclick="closeEditTripModal()">إلغاء</button>
+        <button class="btn-primary" onclick="saveEditTrip()"><i class="ph ph-check"></i> حفظ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Confirm ── -->
+  <div class="overlay hidden" id="confirmOverlay">
+    <div class="confirm-dialog">
+      <i class="ph-fill ph-warning-circle confirm-ico"></i>
+      <h3 id="confirmTitle">تأكيد الحذف</h3>
+      <p id="confirmMsg">هل أنت متأكد؟</p>
+      <div class="confirm-actions">
+        <button class="btn-ghost"  id="confirmCancel">إلغاء</button>
+        <button class="btn-danger" id="confirmOk">حذف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toasts -->
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+  <!-- FAB -->
+  <button class="fab" id="fab" title="إضافة">
+    <i class="ph ph-plus"></i>
+  </button>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="trip-app.js"></script>
+</body>
+</html>

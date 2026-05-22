@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>طلعت — رحلاتك</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="page-home">
+
+  <!-- Ambient -->
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="app-brand">
+        <div class="app-logo"><i class="ph-fill ph-leaf"></i></div>
+        <span class="app-name">طلعت</span>
+      </div>
+      <div class="app-header-actions">
+        <button class="icon-btn" id="notifBtn" title="الإشعارات">
+          <i class="ph ph-bell"></i>
+          <span class="notif-dot hidden" id="notifDot"></span>
+        </button>
+        <button class="btn-primary" id="createTripBtn">
+          <i class="ph ph-plus"></i>
+          <span>رحلة جديدة</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="home-main" style="position:relative;z-index:1">
+
+    <section class="home-hero">
+      <h1 class="hero-title">رحلاتك</h1>
+      <p class="hero-sub" id="heroSub">جاري التحميل...</p>
+    </section>
+
+    <section class="trips-section">
+      <div class="trips-loading" id="tripsLoading">
+        <div class="spinner"></div>
+      </div>
+      <div class="empty-state hidden" id="tripsEmpty">
+        <i class="ph ph-map-trifold"></i>
+        <h3>لا توجد رحلات بعد</h3>
+        <p>أنشئ أول رحلة وابدأ في التخطيط مع أصدقائك</p>
+        <button class="btn-primary" onclick="openCreateModal()">
+          <i class="ph ph-plus"></i> إنشاء أول رحلة
+        </button>
+      </div>
+      <div class="trips-grid hidden" id="tripsGrid"></div>
+    </section>
+
+  </main>
+
+  <!-- FAB (mobile) -->
+  <button class="fab" id="fab" onclick="openCreateModal()" title="رحلة جديدة">
+    <i class="ph ph-plus"></i>
+  </button>
+
+  <!-- ── Create / Edit Trip Modal ── -->
+  <div class="overlay hidden" id="tripOverlay" onclick="handleOverlayClick(event,'tripOverlay',closeTripModal)">
+    <div class="modal modal--lg" id="tripModal">
+      <div class="modal-head">
+        <h2 class="modal-title" id="tripModalTitle">
+          <i class="ph ph-map-trifold"></i> رحلة جديدة
+        </h2>
+        <button class="close-btn" onclick="closeTripModal()"><i class="ph ph-x"></i></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editTripId">
+
+        <div class="field-row">
+          <div class="field field--grow">
+            <label class="field-label">اسم الرحلة <span class="req">*</span></label>
+            <input type="text" id="tName" class="field-input" placeholder="مثال: رحلة المزرعة الصيفية" autocomplete="off">
+          </div>
+          <div class="field" style="width:140px;flex-shrink:0">
+            <label class="field-label">النوع</label>
+            <div class="select-wrap">
+              <select id="tType" class="field-input field-select">
+                <option value="farm">مزرعة</option>
+                <option value="beach">شاطئ</option>
+                <option value="chalet">شاليه</option>
+                <option value="camping">تخييم</option>
+                <option value="roadtrip">رحلة برية</option>
+                <option value="travel">سفر</option>
+                <option value="custom">مخصص</option>
+              </select>
+              <i class="ph ph-caret-down sel-arrow"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field field--grow">
+            <label class="field-label">الموقع</label>
+            <div class="field-icon-wrap">
+              <i class="ph ph-map-pin field-pre-icon"></i>
+              <input type="text" id="tLocation" class="field-input field-input--icon" placeholder="مثال: الإسماعيلية، مصر" autocomplete="off">
+            </div>
+          </div>
+          <div class="field" style="width:150px;flex-shrink:0">
+            <label class="field-label">الميزانية (ج.م)</label>
+            <input type="number" id="tBudget" class="field-input" placeholder="0" min="0">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label">تاريخ البدء</label>
+            <input type="date" id="tStart" class="field-input">
+          </div>
+          <div class="field">
+            <label class="field-label">تاريخ الانتهاء</label>
+            <input type="date" id="tEnd" class="field-input">
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">وصف الرحلة</label>
+          <textarea id="tDesc" class="field-input field-textarea" placeholder="أضف تفاصيل عن الرحلة والتوقعات..." rows="3"></textarea>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="btn-ghost" onclick="closeTripModal()">إلغاء</button>
+        <button class="btn-primary" onclick="saveTrip()">
+          <i class="ph ph-check"></i> حفظ الرحلة
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Confirm Dialog ── -->
+  <div class="overlay hidden" id="confirmOverlay">
+    <div class="confirm-dialog">
+      <i class="ph-fill ph-warning-circle confirm-ico"></i>
+      <h3 id="confirmTitle">تأكيد الحذف</h3>
+      <p id="confirmMsg">هل أنت متأكد؟</p>
+      <div class="confirm-actions">
+        <button class="btn-ghost" id="confirmCancel">إلغاء</button>
+        <button class="btn-danger" id="confirmOk">حذف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toasts -->
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
