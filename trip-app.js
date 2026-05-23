@@ -25,7 +25,7 @@ let _modalEditId = null;
 // ── URL PARAM ─────────────────────────────────────────────────
 const urlParams = new URLSearchParams(window.location.search);
 S.tripId = urlParams.get('id');
-if (!S.tripId) window.location.href = 'index.html';
+if (!S.tripId) window.location.href = 'app.html';
 
 // ── FIREBASE REFS ─────────────────────────────────────────────
 function ref(path) { return window.db.ref(`trips/${S.tripId}/${path}`); }
@@ -1178,7 +1178,7 @@ document.getElementById('confirmOk').addEventListener('click', () => {
     if (type === 'trip') {
       if (S.isLocalMode) lsDeleteTrip(S.tripId);
       else window.db.ref(`trips/${S.tripId}`).remove();
-      window.location.href = 'index.html';
+      window.location.href = 'app.html';
       return;
     }
     const maps = { item: S.items, activity: S.activities, expense: S.expenses, meal: S.meals };

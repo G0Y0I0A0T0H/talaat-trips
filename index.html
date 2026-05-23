@@ -3,165 +3,397 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>طلعت — رحلاتك</title>
+  <title>طلعت — خطط رحلتك مع أصدقائك</title>
+  <meta name="description" content="منصة تخطيط الرحلات الأولى بالعربي. قوائم، مصاريف، وجبات، ذكريات — كل شي في مكان واحد.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="landing.css">
 </head>
-<body class="page-home">
+<body>
 
-  <!-- Ambient -->
-  <div class="bg-ambient" aria-hidden="true">
-    <div class="bg-orb bg-orb-1"></div>
-    <div class="bg-orb bg-orb-2"></div>
-  </div>
+  <!-- ════════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════════ -->
+  <nav class="nav" id="nav">
+    <a href="app.html" class="nav-brand">
+      <div class="nav-logo"><i class="ph-fill ph-leaf"></i></div>
+      <span>طلعت</span>
+    </a>
+    <div class="nav-actions">
+      <a href="app.html" class="btn btn--outline">الدخول</a>
+      <a href="app.html" class="btn btn--primary">
+        <i class="ph ph-plus"></i> رحلة جديدة
+      </a>
+    </div>
+  </nav>
 
-  <!-- Header -->
-  <header class="app-header">
-    <div class="app-header-inner">
-      <div class="app-brand">
-        <div class="app-logo"><i class="ph-fill ph-leaf"></i></div>
-        <span class="app-name">طلعت</span>
+  <!-- ════════════════════════════════════════════
+       HERO  —  hero-farm-night.jpg
+  ════════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero__bg">
+      <img
+        src="assets/images/hero-farm-night.jpg"
+        alt="مزرعة في الليل"
+        loading="eager"
+        fetchpriority="high"
+      >
+      <div class="hero__vignette"></div>
+    </div>
+
+    <div class="hero__body">
+      <div class="hero__pill reveal">
+        <i class="ph-fill ph-star"></i>
+        منصة الرحلات الأولى بالعربي
       </div>
-      <div class="app-header-actions">
-        <button class="icon-btn" id="notifBtn" title="الإشعارات">
-          <i class="ph ph-bell"></i>
-          <span class="notif-dot hidden" id="notifDot"></span>
-        </button>
-        <button class="btn-primary" id="createTripBtn">
-          <i class="ph ph-plus"></i>
-          <span>رحلة جديدة</span>
-        </button>
+      <h1 class="hero__title reveal d1">
+        اجعل كل رحلة<br><em>لا تُنسى</em>
+      </h1>
+      <p class="hero__sub reveal d2">
+        خطط، شارك، وعش أجمل اللحظات مع من تحب.<br>
+        كل ما تحتاجه في مكان واحد.
+      </p>
+      <div class="hero__cta reveal d3">
+        <a href="app.html" class="btn btn--primary btn--lg">
+          <i class="ph ph-arrow-left"></i>
+          ابدأ رحلتك الآن
+        </a>
+        <a href="#features" class="btn btn--outline btn--lg">
+          تعرف على المنصة
+        </a>
       </div>
     </div>
-  </header>
 
-  <!-- Main -->
-  <main class="home-main" style="position:relative;z-index:1">
+    <div class="hero__scroll">
+      <div class="hero__scroll-bar"></div>
+      <div class="hero__scroll-dot"></div>
+    </div>
+  </section>
 
-    <section class="home-hero">
-      <h1 class="hero-title">رحلاتك</h1>
-      <p class="hero-sub" id="heroSub">جاري التحميل...</p>
-    </section>
+  <!-- ════════════════════════════════════════════
+       FEATURES  —  dashboard-preview.png
+  ════════════════════════════════════════════ -->
+  <section class="section" id="features">
+    <div class="wrap">
+      <div class="features__grid">
 
-    <section class="trips-section">
-      <div class="trips-loading" id="tripsLoading">
-        <div class="spinner"></div>
+        <div>
+          <div class="eyebrow reveal">المنصة</div>
+          <h2 class="h2 reveal d1">كل ما تحتاجه<br>في <em>مكان واحد</em></h2>
+          <p class="lead reveal d2">
+            من القائمة والميزانية لتوزيع المهام وألبوم الذكريات —
+            طلعت يغطي كل تفاصيل رحلتك.
+          </p>
+          <div class="features__tags reveal d3">
+            <div class="tag"><i class="ph ph-check-square"></i> قوائم تفاعلية</div>
+            <div class="tag"><i class="ph ph-receipt"></i> تتبع المصاريف</div>
+            <div class="tag"><i class="ph ph-calendar-blank"></i> جدول الرحلة</div>
+            <div class="tag"><i class="ph ph-fork-knife"></i> تخطيط الوجبات</div>
+            <div class="tag"><i class="ph ph-users"></i> مشاركة الفريق</div>
+            <div class="tag"><i class="ph ph-images"></i> ألبوم الذكريات</div>
+          </div>
+        </div>
+
+        <div class="screen-float reveal d2">
+          <div class="screen-frame">
+            <img
+              src="assets/images/dashboard-preview.png"
+              alt="لوحة تحكم طلعت"
+              loading="lazy"
+            >
+          </div>
+          <div class="screen-light"></div>
+        </div>
+
       </div>
-      <div class="empty-state hidden" id="tripsEmpty">
-        <i class="ph ph-map-trifold"></i>
-        <h3>لا توجد رحلات بعد</h3>
-        <p>أنشئ أول رحلة وابدأ في التخطيط مع أصدقائك</p>
-        <button class="btn-primary" onclick="openCreateModal()">
-          <i class="ph ph-plus"></i> إنشاء أول رحلة
-        </button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       COLLAB  —  team-planning.jpg
+  ════════════════════════════════════════════ -->
+  <section class="section section--surface" id="collab">
+    <div class="wrap">
+      <div class="collab__grid">
+
+        <div class="collab__img-wrap reveal">
+          <img
+            src="assets/images/team-planning.jpg"
+            alt="تخطيط جماعي للرحلة"
+            loading="lazy"
+          >
+          <div class="collab__img-shade"></div>
+          <div class="collab__live">
+            <div class="live-dot"></div>
+            <div>
+              <div style="font-size:13px;font-weight:700;line-height:1.3">مزامنة فورية</div>
+              <div style="font-size:11px;color:var(--muted)">الجميع يشوف نفس الخطة</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="eyebrow reveal">التعاون</div>
+          <h2 class="h2 reveal d1">خططوا معاً،<br>في <em>وقت واحد</em></h2>
+          <p class="lead reveal d2">
+            أضف أصدقاءك ووزع المهام وتابع التقدم —
+            كل التغييرات تظهر فورياً للجميع بدون تأخير.
+          </p>
+          <div class="collab__items reveal d3">
+            <div class="collab__item">
+              <div class="ci-icon"><i class="ph ph-lightning"></i></div>
+              <div class="ci-text">
+                <h4>مزامنة لحظية</h4>
+                <p>أي تعديل يظهر لكل الأعضاء في اللحظة نفسها</p>
+              </div>
+            </div>
+            <div class="collab__item">
+              <div class="ci-icon"><i class="ph ph-user-plus"></i></div>
+              <div class="ci-text">
+                <h4>أضف الأصدقاء بسهولة</h4>
+                <p>دعوة سريعة وكل عضو يشوف نفس الخطة تلقائياً</p>
+              </div>
+            </div>
+            <div class="collab__item">
+              <div class="ci-icon"><i class="ph ph-list-checks"></i></div>
+              <div class="ci-text">
+                <h4>توزيع المسؤوليات</h4>
+                <p>خصص كل مهمة لشخص معين وتابع من أنجز</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="trips-grid hidden" id="tripsGrid"></div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <!-- ════════════════════════════════════════════
+       EXPENSES  —  expenses-dashboard.png
+  ════════════════════════════════════════════ -->
+  <section class="section" id="expenses">
+    <div class="wrap">
+      <div class="expenses__inner">
+        <div class="eyebrow reveal" style="justify-content:center">المصاريف</div>
+        <h2 class="h2 reveal d1">تتبع المصاريف<br><em>بذكاء</em></h2>
+        <p class="lead reveal d2">
+          من دفع؟ وكم يرجع لمن؟ التسوية تُحسب تلقائياً بدون أي خلافات.
+        </p>
 
-  <!-- FAB (mobile) -->
-  <button class="fab" id="fab" onclick="openCreateModal()" title="رحلة جديدة">
-    <i class="ph ph-plus"></i>
-  </button>
+        <div class="expenses__stage reveal d3">
+          <div class="expenses__glow"></div>
+          <div class="expenses__frame">
+            <img
+              src="assets/images/expenses-dashboard.png"
+              alt="لوحة تتبع المصاريف"
+              loading="lazy"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- ── Create / Edit Trip Modal ── -->
-  <div class="overlay hidden" id="tripOverlay" onclick="handleOverlayClick(event,'tripOverlay',closeTripModal)">
-    <div class="modal modal--lg" id="tripModal">
-      <div class="modal-head">
-        <h2 class="modal-title" id="tripModalTitle">
-          <i class="ph ph-map-trifold"></i> رحلة جديدة
+  <!-- ════════════════════════════════════════════
+       CAMPFIRE  —  friends-campfire.jpg
+  ════════════════════════════════════════════ -->
+  <section class="campfire" id="friends">
+    <div class="campfire__bg">
+      <img
+        src="assets/images/friends-campfire.jpg"
+        alt="أصدقاء حول نار"
+        loading="lazy"
+      >
+      <div class="campfire__vignette"></div>
+    </div>
+
+    <div class="campfire__body reveal">
+      <div class="eyebrow" style="justify-content:center">اللحظات الحقيقية</div>
+      <h2 class="h2">
+        الرحلة مش بس مكان،<br>
+        هي <em>ذكرى تعيش معك</em>
+      </h2>
+      <p class="lead">
+        اللحظات مع الأصدقاء هي اللي تفرق.
+        طلعت يساعدك تحافظ عليها وتشاركها مع من تحب.
+      </p>
+      <a href="app.html" class="btn btn--primary btn--lg" style="margin-top:36px">
+        <i class="ph ph-arrow-left"></i>
+        خطط رحلتك الآن
+      </a>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       MEMORIES  —  memories-gallery.jpg
+  ════════════════════════════════════════════ -->
+  <section class="section section--surface" id="memories">
+    <div class="wrap">
+      <div class="memories__intro reveal">
+        <div class="eyebrow" style="justify-content:center">الذكريات</div>
+        <h2 class="h2 reveal d1">ألبوم لا يُنسى</h2>
+        <p class="lead reveal d2">
+          احفظ صور رحلتك وشاركها مع الفريق.
+          كل صورة قصة تستحق أن تُحكى للأبد.
+        </p>
+      </div>
+
+      <div class="memories__frame reveal d2">
+        <img
+          src="assets/images/memories-gallery.jpg"
+          alt="معرض ذكريات الرحلات"
+          loading="lazy"
+        >
+        <div class="memories__shade"></div>
+        <div class="memories__caption">
+          <h3>لحظاتكم، محفوظة للأبد</h3>
+          <p>أضف صور من أي مكان وشاركها مع الفريق بلحظة</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       MOBILE  —  mobile-trip-ui.png
+  ════════════════════════════════════════════ -->
+  <section class="section" id="mobile">
+    <div class="wrap">
+      <div class="mobile__grid">
+
+        <div class="mobile__visual reveal">
+          <div class="mobile__phone">
+            <img
+              src="assets/images/mobile-trip-ui.png"
+              alt="تطبيق طلعت على الجوال"
+              loading="lazy"
+            >
+            <div class="mobile__shadow"></div>
+          </div>
+        </div>
+
+        <div>
+          <div class="eyebrow reveal">الجوال</div>
+          <h2 class="h2 reveal d1">في جيبك<br>في <em>كل لحظة</em></h2>
+          <p class="lead reveal d2">
+            صُمم لأجهزة الجوال من البداية.
+            سريع، سلس، وجاهز معك في أي لحظة من الرحلة.
+          </p>
+          <div class="mobile__steps reveal d3">
+            <div class="mobile__step">
+              <div class="step-num">١</div>
+              <div class="step-body">
+                <h4>تصميم متجاوب بالكامل</h4>
+                <p>يعمل على أي جهاز — جوال، تابلت، أو كمبيوتر</p>
+              </div>
+            </div>
+            <div class="mobile__step">
+              <div class="step-num">٢</div>
+              <div class="step-body">
+                <h4>بدون تحميل أو تسجيل</h4>
+                <p>افتح المتصفح وابدأ فوراً — لا تطبيق، لا حسابات</p>
+              </div>
+            </div>
+            <div class="mobile__step">
+              <div class="step-num">٣</div>
+              <div class="step-body">
+                <h4>يعمل بدون إنترنت</h4>
+                <p>يحفظ بياناتك محلياً ويزامن تلقائياً لما ترجع</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════
+       CTA  —  roadtrip-sunset.jpg
+  ════════════════════════════════════════════ -->
+  <section class="cta" id="cta">
+    <div class="cta__bg">
+      <img
+        src="assets/images/roadtrip-sunset.jpg"
+        alt="غروب على الطريق"
+        loading="lazy"
+      >
+      <div class="cta__vignette"></div>
+    </div>
+
+    <div class="wrap">
+      <div class="cta__body reveal">
+        <div class="eyebrow" style="justify-content:center">ابدأ الآن</div>
+        <h2 class="h2">
+          رحلتك القادمة<br>
+          تبدأ <em>من هنا</em>
         </h2>
-        <button class="close-btn" onclick="closeTripModal()"><i class="ph ph-x"></i></button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" id="editTripId">
-
-        <div class="field-row">
-          <div class="field field--grow">
-            <label class="field-label">اسم الرحلة <span class="req">*</span></label>
-            <input type="text" id="tName" class="field-input" placeholder="مثال: رحلة المزرعة الصيفية" autocomplete="off">
-          </div>
-          <div class="field" style="width:140px;flex-shrink:0">
-            <label class="field-label">النوع</label>
-            <div class="select-wrap">
-              <select id="tType" class="field-input field-select">
-                <option value="farm">مزرعة</option>
-                <option value="beach">شاطئ</option>
-                <option value="chalet">شاليه</option>
-                <option value="camping">تخييم</option>
-                <option value="roadtrip">رحلة برية</option>
-                <option value="travel">سفر</option>
-                <option value="custom">مخصص</option>
-              </select>
-              <i class="ph ph-caret-down sel-arrow"></i>
-            </div>
-          </div>
+        <p class="lead">
+          آلاف الرحلات خُططت بطلعت.
+          حان وقت رحلتك أنت.
+        </p>
+        <div class="cta__actions">
+          <a href="app.html" class="btn btn--primary btn--lg">
+            <i class="ph ph-arrow-left"></i>
+            ابدأ مجاناً الآن
+          </a>
+          <a href="app.html" class="btn btn--outline btn--lg">
+            تصفح التطبيق
+          </a>
         </div>
-
-        <div class="field-row">
-          <div class="field field--grow">
-            <label class="field-label">الموقع</label>
-            <div class="field-icon-wrap">
-              <i class="ph ph-map-pin field-pre-icon"></i>
-              <input type="text" id="tLocation" class="field-input field-input--icon" placeholder="مثال: الإسماعيلية، مصر" autocomplete="off">
-            </div>
-          </div>
-          <div class="field" style="width:150px;flex-shrink:0">
-            <label class="field-label">الميزانية (ج.م)</label>
-            <input type="number" id="tBudget" class="field-input" placeholder="0" min="0">
-          </div>
-        </div>
-
-        <div class="field-row">
-          <div class="field">
-            <label class="field-label">تاريخ البدء</label>
-            <input type="date" id="tStart" class="field-input">
-          </div>
-          <div class="field">
-            <label class="field-label">تاريخ الانتهاء</label>
-            <input type="date" id="tEnd" class="field-input">
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field-label">وصف الرحلة</label>
-          <textarea id="tDesc" class="field-input field-textarea" placeholder="أضف تفاصيل عن الرحلة والتوقعات..." rows="3"></textarea>
-        </div>
-      </div>
-      <div class="modal-foot">
-        <button class="btn-ghost" onclick="closeTripModal()">إلغاء</button>
-        <button class="btn-primary" onclick="saveTrip()">
-          <i class="ph ph-check"></i> حفظ الرحلة
-        </button>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- ── Confirm Dialog ── -->
-  <div class="overlay hidden" id="confirmOverlay">
-    <div class="confirm-dialog">
-      <i class="ph-fill ph-warning-circle confirm-ico"></i>
-      <h3 id="confirmTitle">تأكيد الحذف</h3>
-      <p id="confirmMsg">هل أنت متأكد؟</p>
-      <div class="confirm-actions">
-        <button class="btn-ghost" id="confirmCancel">إلغاء</button>
-        <button class="btn-danger" id="confirmOk">حذف</button>
-      </div>
+  <!-- ════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <a href="app.html" class="footer__brand">
+        <div class="nav-logo" style="width:30px;height:30px;font-size:14px">
+          <i class="ph-fill ph-leaf"></i>
+        </div>
+        طلعت
+      </a>
+      <nav class="footer__nav">
+        <a href="#features">المميزات</a>
+        <a href="#collab">التعاون</a>
+        <a href="#expenses">المصاريف</a>
+        <a href="app.html">التطبيق</a>
+      </nav>
+      <p class="footer__copy">© 2026 طلعت — صُنع بشغف</p>
     </div>
-  </div>
+  </footer>
 
-  <!-- Toasts -->
-  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+  <script>
+    /* ── Nav stuck state ── */
+    const nav = document.getElementById('nav');
+    const onScroll = () => nav.classList.toggle('stuck', scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-  <script src="firebase.js"></script>
-  <script src="app.js"></script>
+    /* ── Hero cinematic entrance ── */
+    const heroImg = document.querySelector('.hero__bg img');
+    const markReady = () => document.getElementById('hero').classList.add('ready');
+    heroImg.complete ? markReady() : heroImg.addEventListener('load', markReady);
+
+    /* ── Scroll reveal ── */
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('in')),
+      { threshold: 0.08, rootMargin: '0px 0px -48px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    /* ── Smooth anchor scroll ── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+  </script>
+
 </body>
 </html>
