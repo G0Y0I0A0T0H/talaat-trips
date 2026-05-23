@@ -160,6 +160,34 @@ a { text-decoration: none; color: inherit; }
 }
 .nav-actions { display: flex; align-items: center; gap: 10px; }
 
+/* ── Logo Image ──────────────────────────────────────────── */
+.nav-logo-img {
+  height: 50px;
+  width: auto;
+  border-radius: 12px;
+  filter: drop-shadow(0 0 16px rgba(34,197,94,0.55))
+          drop-shadow(0 2px 6px rgba(0,0,0,0.45));
+  transition: filter 0.35s ease, transform 0.35s ease;
+  display: block;
+}
+.nav-brand:hover .nav-logo-img {
+  filter: drop-shadow(0 0 26px rgba(34,197,94,0.85))
+          drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+  transform: scale(1.05);
+}
+.footer-logo-img {
+  height: 34px;
+  width: auto;
+  border-radius: 8px;
+  filter: drop-shadow(0 0 10px rgba(34,197,94,0.4));
+  transition: filter 0.3s ease, transform 0.3s ease;
+  display: block;
+}
+.footer__brand:hover .footer-logo-img {
+  filter: drop-shadow(0 0 18px rgba(34,197,94,0.7));
+  transform: scale(1.05);
+}
+
 /* ── HERO ────────────────────────────────────────────────── */
 .hero {
   position: relative;
